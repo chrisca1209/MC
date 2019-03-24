@@ -11,10 +11,10 @@
         $data = mysqli_fetch_array($res_query);
         // echo $data['email'];
         $_SESSION['id_usuario'] = $data['id_usuario'];
-        $_SESSION['nombre'] = $data['nombre_usuario'];
-        $_SESSION['nombre_completo'] = $data['nombre_usuario'].' '.$data['ape_paterno'].' '.$data['ape_materno'];
+        $_SESSION['nombre'] = $data['nombre'];
+        $_SESSION['nombre_completo'] = $data['nombre'].' '.$data['ape_p'].' '.$data['ape_m'];
         $_SESSION['email'] = $data['email'];
-        $_SESSION['sesvar'] = $data['id_usuario'].$data['nombre_usuario'];
+        $_SESSION['sesvar'] = $data['id_usuario'].$data['nombre'];
         echo '
             <script>
                 window.location = "../panel/dashboard.php"
