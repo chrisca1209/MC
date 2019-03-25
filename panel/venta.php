@@ -51,21 +51,29 @@
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
                 <a href="./dashboard.php">
-                   <img src="../images/logo.jpg" alt="" width="180px"/>
+                    <img src="../images/logo.jpg" alt="" width="180px"/>
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li>
+                        <li class="has-sub">
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li>
-                            <a href="./producto.php">
+						<li class=" has-sub">
+                            <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li class=" active has-sub">
+                                    <a href="registro_producto.php">Registrar Nuevo Producto</a>
+                                </li>
+                                <li>
+                                    <a href="ver_producto.php">Ver Productos Existentes</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="active has-sub">
+                        <li>
                             <a href="./venta.php">
                                 <i class="fas fa-table"></i>Ventas</a>
                         </li>
@@ -73,13 +81,17 @@
                             <a href="empleado.php">
                                 <i class="far fa-check-square"></i>Empleados</a>
                         </li>
-                        <li >
-                            <a href="proveedor.php">
-                                <i class="fas fa-copy"></i>Proveedores</a>
-                        </li>
-						<li >
-                            <a href="barras.php">
-                                <i class="fas fa-copy"></i>Progreso</a>
+						<li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-chart-bar"></i>Proveedores</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li class=" has-sub">
+                                    <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
+                                </li>
+                                <li>
+                                    <a href="ver_proveedor.php">Ver Proveedores</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>

@@ -1,4 +1,4 @@
-<?php
+<?php 
   session_start();
   if (!isset($_SESSION['sesvar'])) {
     echo '
@@ -20,7 +20,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Modificar</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -42,6 +42,8 @@
 
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
+    <link href="../css/style.css" rel="stylesheet" media="all">
+	
 
 </head>
 
@@ -57,15 +59,15 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-						<li class=" has-sub">
+						<li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" has-sub">
+                                <li class="  has-sub">
                                     <a href="registro_producto.php">Registrar Nuevo Producto</a>
                                 </li>
                                 <li>
@@ -257,7 +259,7 @@
                     </div>
                 </div>
             </header>
-            <!-- HEADER DESKTOP-->
+            <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
@@ -266,23 +268,93 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Main Page</h2>
+                                    <h2 class="title-1">Modificar Producto</h2>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row">
+						<div>
+							<?php  
+								include("../adm/conexion.php");
+								$id_g=$_GET['id'];
+								$consulta_genero=mysqli_query($conexion,"select * from producto where id_producto='$id_g';");
+								
+								while($r=mysqli_fetch_array($consulta_genero)){
+									$id=$r['id_producto'];
+									$categoria=$r['id_categoria'];
+									$proveedor=$r['id_proveedor'];
+									$nomprodu=$r['nombre'];
+									$color=$r['color'];
+									$talla=$r['talla'];
+									$estadoori=$r['estado_origen'];
+									$precioad=$r['precio'];
+									$gastoin=$r['gastos_indi'];
+								}
+							
+							?>
+							<br><br>
+							<form action="" method="POST"> 
+								<label>Categorìa: </label> <select name="categoria" required="required"><option value="<?php echo $categoria; ?>">---</option>
+								<?php
+									include("../adm/conexion.php");
+									$consulta_categoria=mysqli_query($conexion,"SELECT * FROM categoria;");
+									while($r=mysqli_fetch_array($consulta_categoria))
+									{
+										echo'<option value="'.$r['id_categoria'].'">'.$r['id_categoria'].'.- '.$r['nombre'].'</option>';
+
+									}
+								?>
+								</select>
+								<br><br>
+								<label>Proveedor: </label> <select name="proveedor" value="<?php echo $proveedor; ?>" required="required"><option>---</option>
+								<?php
+									include("../adm/conexion.php");
+									$consulta_proveedor=mysqli_query($conexion,"SELECT * FROM proveedor;");
+									while($r=mysqli_fetch_array($consulta_proveedor))
+									{
+										echo'<option value="'.$r['id_proveedor'].'">'.$r['id_proveedor'].'.- '.$r['nombre'].'</option>';
+
+									}
+								?>
+								</select>
+									<label hidden="hidden">ID: </label>	<input type="text" name="idpro" value="<?php echo $id; ?>" style="width:220px" readonly="readonly" placeholder="	Nombre_Producto" hidden="hidden"/>
+									<br><br>
+									<label>Nombre: </label>	<input type="text" name="nomprodu" value="<?php echo $nomprodu; ?>" style="width:220px" required="required" placeholder="	Nombre_Producto"/>
+									<br><br>
+									<label>Color: </label>	<input type="text" name="color" value="<?php echo $color; ?>" style="width:220px" placeholder="	Color_Producto"/>
+									<br><br>
+									<label>Talla: </label>	<input type="text" name="talla" value="<?php echo $talla; ?>" style="width:220px" placeholder="	Nombre_Producto"/>
+									<br><br>
+									<label>Estado de Origen: </label>	<input type="text" name="estadoori" value="<?php echo $estadoori; ?>" style="width:220px" required="required" placeholder="	Nombre_Estado"/>
+									<br><br>
+									<label>Precio de Adquisición: </label> <input type="number" name="precioad" value="<?php echo $precioad; ?>" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<label>Gastos Indirectos: </label> <input type="number" name="gastoin" value="<?php echo $gastoin; ?>" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<div class="overview-wrap">
+										<h3>¿Desea Actualizar el registro?</h3>
+										<button type="submit" class="au-btn au-btn-icon au-btn--blue" name="Si" value="Guardar">
+											Si
+										</button>
+										<button type="button" class="au-btn au-btn-icon au-btn--blue" name="no" value="no" onclick="javascript:window.location='ver_producto.php';">
+											No
+										</button>
+									</div>
+							</form>
+						</div>
+						<br>
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
                                     <p>Copyright © 2019 Business Technology. All rights reserved. Template by <a href="#">Business Technology</a>.</p>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
+        <!-- END PAGE CONTAINER-->
 
     </div>
 
@@ -314,3 +386,24 @@
 
 </html>
 <!-- end document-->
+<?php
+	include("../adm/conexion.php");
+	@$id=$_POST['idpro'];
+	@$categoria=$_POST['categoria'];
+	@$proveedor=$_POST['proveedor'];
+	@$nomprodu=$_POST['nomprodu'];
+	@$color=$_POST['color'];
+	@$talla=$_POST['talla'];
+	@$estadoori=$_POST['estadoori'];
+	@$precioad=$_POST['precioad'];
+	@$gastoin=$_POST['gastoin'];
+		if(isset($id)){
+			$insertar=mysqli_query($conexion,"update producto set nombre='$nomprodu', color='$color', talla='$talla', estado_origen='$estadoori', id_proveedor='$proveedor', id_categoria='$categoria',precio='$precioad', gasto_indi='$gastoin' where id_producto='$id';");
+				if($insertar){
+					echo"<script>alert('Datos Guardados Correctamente')</script>";
+				}else{
+					echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
+				}
+		}
+	mysqli_close($conexion);
+?>

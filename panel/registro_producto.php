@@ -1,4 +1,4 @@
-<?php
+<?php 
   session_start();
   if (!isset($_SESSION['sesvar'])) {
     echo '
@@ -20,7 +20,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Productos</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -42,6 +42,8 @@
 
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
+    <link href="../css/style.css" rel="stylesheet" media="all">
+	
 
 </head>
 
@@ -57,15 +59,15 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-						<li class=" has-sub">
+						<li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" has-sub">
+                                <li class=" active has-sub">
                                     <a href="registro_producto.php">Registrar Nuevo Producto</a>
                                 </li>
                                 <li>
@@ -85,7 +87,7 @@
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="  has-sub">
+                                <li class=" has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
                                 <li>
@@ -257,7 +259,7 @@
                     </div>
                 </div>
             </header>
-            <!-- HEADER DESKTOP-->
+            <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
@@ -266,23 +268,72 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Main Page</h2>
+                                    <h2 class="title-1">Registro de Productos</h2>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row">
+						<div>
+							<br><br>
+							<form action="" method="POST" enctype="multipart/form-data"> 
+								<label>Categorìa: </label> <select name="categoria" required="required"><option>---</option>
+								<?php
+									include("../adm/conexion.php");
+									$consulta_categoria=mysqli_query($conexion,"SELECT * FROM categoria;");
+									while($r=mysqli_fetch_array($consulta_categoria))
+									{
+										echo'<option value="'.$r['id_categoria'].'">'.$r['id_categoria'].'.- '.$r['nombre'].'</option>';
+
+									}
+								?>
+								</select>
+								<br><br>
+								<label>Proveedor: </label> <select name="proveedor" required="required"><option>---</option>
+								<?php
+									include("../adm/conexion.php");
+									$consulta_proveedor=mysqli_query($conexion,"SELECT * FROM proveedor;");
+									while($r=mysqli_fetch_array($consulta_proveedor))
+									{
+										echo'<option value="'.$r['id_proveedor'].'">'.$r['id_proveedor'].'.- '.$r['nombre'].'</option>';
+
+									}
+								?>
+								</select>
+									<br><br>
+									<label>Nombre: </label>	<input type="text" name="nomprodu" style="width:220px" required="required" placeholder="	Nombre_Producto"/>
+									<br><br>
+									<label>Color: </label>	<input type="text" name="color" style="width:220px" placeholder="	Color_Producto"/>
+									<br><br>
+									<label>Talla: </label>	<input type="text" name="talla" style="width:220px" placeholder="	Nombre_Producto"/>
+									<br><br>
+									<label>Estado de Origen: </label>	<input type="text" name="estadoori" style="width:220px" required="required" placeholder="	Nombre_Estado"/>
+									<br><br>
+									<label>Precio de Adquisición: </label> <input type="number" name="precioad" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<label>Gastos Indirectos: </label> <input type="number" name="gastoin" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<label>Imagen: </label> <input type="file" name="image" />
+									<br><br>
+									<div class="overview-wrap">
+										<button class="au-btn au-btn-icon au-btn--blue" name="Guardar">
+											Guardar
+										</button>
+									</div>
+							</form>
+						</div>
+						<br>
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
                                     <p>Copyright © 2019 Business Technology. All rights reserved. Template by <a href="#">Business Technology</a>.</p>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
+        <!-- END PAGE CONTAINER-->
 
     </div>
 
@@ -314,3 +365,40 @@
 
 </html>
 <!-- end document-->
+<?php
+
+	include ('../adm/conexion.php');
+	@$categoria = $_POST['categoria'];
+	@$proveedor = $_POST['proveedor'];
+	@$nomprodu = $_POST['nomprodu'];
+	@$color = $_POST['color'];
+	@$talla = $_POST['talla'];
+	@$estadoori = $_POST['estadoori'];
+	@$precioad = $_POST['precioad'];
+	@$gastoin = $_POST['gastoin'];
+	@$nomImage=$_FILES['image']['name'];
+	@$origenI=$_FILES['image']['tmp_name'];
+	@$destinoI="../images/productos/".$nomImage;
+	@copy($origenI,$destinoI);
+	
+	if(isset($categoria) and isset($proveedor) and isset($nomprodu) and isset($color) and isset($talla) and isset($estadoori) and isset($precioad) and isset($gastoin) and isset($destinoI))
+	{
+        if($origenI != NULL){    
+		      $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','$destinoI');");
+		          if($insertar){
+                            echo"<script>alert('Datos Guardados Correctamente')</script>";
+                 }else{
+				            echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
+                  }
+            
+        }else{
+            $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','NULL');");
+		          if($insertar){
+                        echo"<script>alert('Datos Guardados Correctamente')</script>";
+                 }else{
+				        echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
+                 }   
+	   }
+    }
+	mysqli_close($conexion);
+?>

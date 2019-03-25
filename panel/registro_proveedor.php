@@ -1,4 +1,4 @@
-<?php
+<?php 
   session_start();
   if (!isset($_SESSION['sesvar'])) {
     echo '
@@ -20,7 +20,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Proveedores</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -42,6 +42,8 @@
 
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
+    <link href="../css/style.css" rel="stylesheet" media="all">
+	
 
 </head>
 
@@ -57,7 +59,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
@@ -81,11 +83,11 @@
                             <a href="empleado.php">
                                 <i class="far fa-check-square"></i>Empleados</a>
                         </li>
-						<li class="has-sub">
+						<li class=" active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="  has-sub">
+                                <li class=" active has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
                                 <li>
@@ -257,7 +259,7 @@
                     </div>
                 </div>
             </header>
-            <!-- HEADER DESKTOP-->
+            <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
@@ -266,23 +268,43 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Main Page</h2>
+                                    <h2 class="title-1">Registro de Proveedores</h2>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row">
+						<div>
+							<br><br>
+							<form action="" method="POST" enctype="multipart/form-data"> 
+									<br><br>
+									<label>Nombre: </label>	<input type="text" name="nomprove" style="width:220px" required="required" placeholder="	Nombre_Proveedor"/>
+									<br><br>
+									<label>Teléfono: </label>	<input type="text" name="telefono" style="width:220px" placeholder="	Teléfono"/>
+									<br><br>
+									<label>Correo: </label>	<input type="text" name="correo" style="width:220px" placeholder="	ejemplo@gmail.com"/>
+									<br><br>
+									<label>Estado de Origen: </label>	<input type="text" name="estadoorig" style="width:220px" required="required" placeholder="	Nombre_Estado"/>
+									<br><br>
+									<div class="overview-wrap">
+										<button class="au-btn au-btn-icon au-btn--blue" name="Guardar">
+											Guardar
+										</button>
+									</div>
+							</form>
+						</div>
+						<br>
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
                                     <p>Copyright © 2019 Business Technology. All rights reserved. Template by <a href="#">Business Technology</a>.</p>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
+        <!-- END PAGE CONTAINER-->
 
     </div>
 
@@ -314,3 +336,24 @@
 
 </html>
 <!-- end document-->
+<?php
+
+	include ('../adm/conexion.php');
+	
+	@$nomprove = $_POST['nomprove'];
+	@$tel = $_POST['telefono'];
+	@$correo = $_POST['correo'];
+	@$estadoorig = $_POST['estadoorig'];
+	
+	
+	if(isset($nomprove) and isset($tel) and isset($correo) and isset($estadoorig))
+	{
+		$insertar=mysqli_query($conexion,"insert into proveedor values(NULL,'$nomprove','$tel','$correo','$estadoorig');");
+		    if($insertar){
+                echo"<script>alert('Datos Guardados Correctamente')</script>";
+            }else{
+				echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
+            }       
+    }
+	mysqli_close($conexion);
+?>

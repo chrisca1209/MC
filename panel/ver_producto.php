@@ -1,12 +1,14 @@
-<?php
-  session_start();
-  if (!isset($_SESSION['sesvar'])) {
-    echo '
-        <script>
-            window.location = "../"
-        </script>
-    ';
-}//end of if
+<?php 
+	session_start();
+	if (!isset($_SESSION['sesvar'])) {
+		echo '
+			<script>
+				window.location = "../"
+			</script>
+		';
+	}//end of if
+
+	include('../adm/conexion.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +22,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Productos</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -42,6 +44,9 @@
 
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
+    <link href="../css/style.css" rel="stylesheet" media="all">
+	<link rel="stylesheet" type="text/css" href="../plugins/data-tables/DataTables-1.10.18/css/jquery.dataTables.min.css">
+	
 
 </head>
 
@@ -57,18 +62,18 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-						<li class=" has-sub">
+						<li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" has-sub">
+                                <li class="  has-sub">
                                     <a href="registro_producto.php">Registrar Nuevo Producto</a>
                                 </li>
-                                <li>
+                                <li class=" active has-sub">
                                     <a href="ver_producto.php">Ver Productos Existentes</a>
                                 </li>
                             </ul>
@@ -257,7 +262,7 @@
                     </div>
                 </div>
             </header>
-            <!-- HEADER DESKTOP-->
+            <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
@@ -266,23 +271,70 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Main Page</h2>
+                                    <h2 class="title-1">Vista de Productos Existentes</h2>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row">
+						<br><br>
+						<div>
+							<?php 
+								$query = 'SELECT * FROM producto;';
+								$query_result = mysqli_query($conexion,$query);
+							?>
+						<a href="registro_producto.php"><button type="button" class="btn btn-info"> + Nuevo Registro</button></a>
+						<br><br>
+						<table id="productos" style="text-align:center">
+								<thead style="">
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Color</th>
+									<th>Talla</th>
+									<th>Estado</th>
+									<th>Proveedor</th>
+									<th>Categoria</th>
+									<th>Precio</th>
+									<th>Gastos</th>
+									<th>Imagen</th>
+									<th></th>
+									<th></th>
+								</thead>
+								<tbody style="text-align:center;">
+									<?php
+										while(($row = mysqli_fetch_array($query_result)) != null){
+										
+											echo '<tr>
+												<td>'.$row['id_producto'].'</td>
+												<td>'.$row['nombre'].'</td>
+												<td>'.$row['color'].'</td>
+												<td>'.$row['talla'].'</td>
+												<td>'.$row['estado_origen'].'</td>
+												<td>'.$row['id_proveedor'].'</td>
+												<td>'.$row['id_categoria'].'</td>
+												<td>'.$row['precio'].'</td>
+												<td>'.$row['gastos_indi'].'</td>
+												<td>'.$row['imagen'].'</td>
+												<td>"<a href=modificar_producto.php?id='.$row['id_producto'].'><button type="button" class="btn btn-success">Editar</button></a>"</td>
+												<td>"<a href=eliminar_prodcuto.php?id='.$row['id_producto'].'><button type="button" class="btn btn-danger">Eliminar</button></a>"</td>
+											</tr>';
+										}//end while
+									?>
+								</tbody>
+							</table>
+						</div>
+						<br>
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
                                     <p>Copyright © 2019 Business Technology. All rights reserved. Template by <a href="#">Business Technology</a>.</p>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
+        <!-- END PAGE CONTAINER-->
 
     </div>
 
@@ -309,6 +361,15 @@
 
     <!-- Main JS-->
     <script src="../js/main.js"></script>
+	
+	<script type="text/javascript" language="javascript" src="../plugins/data-tables/DataTables-1.10.18/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" language="javascript" src="../plugins/data-tables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+			
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#productos').DataTable();
+		} );
+	</script>
 
 </body>
 
