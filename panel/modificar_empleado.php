@@ -1,5 +1,6 @@
-<?php
+<?php 
   session_start();
+  include("../adm/conexion.php");
   if (!isset($_SESSION['sesvar'])) {
     echo '
         <script>
@@ -20,7 +21,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Modificar Empleado</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -42,6 +43,8 @@
 
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
+    <link href="../css/style.css" rel="stylesheet" media="all">
+	
 
 </head>
 
@@ -57,7 +60,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
@@ -77,7 +80,8 @@
                             <a href="./venta.php">
                                 <i class="fas fa-table"></i>Ventas</a>
                         </li>
-                        <li class=" has-sub">
+						
+						<li class=" active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>Empleados</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -89,11 +93,12 @@
                                 </li>
                             </ul>
                         </li>
-						<li class="has-sub">
+						
+						<li class=" has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="  has-sub">
+                                <li class=" has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
                                 <li>
@@ -265,7 +270,7 @@
                     </div>
                 </div>
             </header>
-            <!-- HEADER DESKTOP-->
+            <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
@@ -274,23 +279,72 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Main Page</h2>
+                                    <h2 class="title-1">Modificar Proveedor</h2>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row">
+						<div>
+							<?php  
+								include("../adm/conexion.php");
+								$id_g=$_GET['id'];
+								$consulta_genero=mysqli_query($conexion,"select * from empleado where id_empleado='$id_g';");
+								
+								while($r=mysqli_fetch_array($consulta_genero)){
+									$id=$r['id_empleado'];
+									$nomemp=$r['nombre'];
+									$app=$r['ap_p'];
+									$apm=$r['ap_m'];
+									$correo=$r['correo'];
+									$telefono=$r['telefono'];
+									$calle=$r['calle'];
+									$numero=$r['numero'];
+								}
+							
+							?>
+							<br><br>
+							<form method="POST"> 
+								
+									<label hidden="hidden">ID: </label>	<input type="text" name="idemp" value="<?php echo $id; ?>" style="width:220px" readonly="readonly" placeholder="	Nombre_Producto" hidden="hidden"/>
+									<br><br>
+									<label>Nombre: </label>	<input type="text" name="nomemp" value="<?php echo $nomemp; ?>" style="width:220px" placeholder="	Nombre_Proveedor"/>
+									<br><br>
+									<label>Apellido Paterno: </label>	<input type="text" name="app" value="<?php echo $app; ?>" style="width:220px"  placeholder="	Nombre_Proveedor"/>
+									<br><br>
+									<label>Apellido Materno: </label>	<input type="text" name="apm" value="<?php echo $apm; ?>" style="width:220px"  placeholder="	Nombre_Proveedor"/>
+									<br><br>
+									<label>Correo: </label>	<input type="text" name="correo" value="<?php echo $correo; ?>" style="width:220px" placeholder="	Correo"/>
+									<br><br>
+									<label>Telefono: </label>	<input type="text" name="telefono" value="<?php echo $telefono; ?>" style="width:220px" placeholder="	Telefono"/>
+									<br><br>
+									<label>Calle: </label>	<input type="text" name="calle" value="<?php echo $calle; ?>" style="width:220px"  placeholder="	Nombre_Estado"/>
+									<br><br>
+									<label>Número: </label>	<input type="text" name="numero" value="<?php echo $numero; ?>" style="width:220px" placeholder="	Nombre_Estado"/>
+									<br><br>
+									<div class="overview-wrap">
+										<h3>¿Desea Actualizar todo el registro?</h3>
+										<button type="submit" class="au-btn au-btn-icon au-btn--blue" name="Si" value="Guardar">
+											Si
+										</button>
+										<button type="button" class="au-btn au-btn-icon au-btn--blue" name="no" value="no" onclick="javascript:window.location='ver_empleado.php';">
+											No
+										</button>
+									</div>
+							</form>
+						</div>
+						<br>
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
                                     <p>Copyright © 2019 Business Technology. All rights reserved. Template by <a href="#">Business Technology</a>.</p>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
+        <!-- END PAGE CONTAINER-->
 
     </div>
 
@@ -322,3 +376,27 @@
 
 </html>
 <!-- end document-->
+<?php
+	
+	@$id=$_POST['idemp'];
+	@$nomemp=$_POST['nomemp'];
+	@$app=$_POST['app'];
+	@$apm=$_POST['apm'];
+	@$correo=$_POST['correo'];
+	@$telefono=$_POST['telefono'];
+	@$calle=$_POST['calle'];
+	@$numero=$_POST['numero'];
+	
+		if(isset($id)){
+			//$insertar=mysqli_query($conexion,"update producto set nombre='$nomprodu', color='$color', talla='$talla', estado_origen='$estadoori', id_proveedor='$proveedor', id_categoria='$categoria',precio='$precioad', gasto_indi='$gastoin' where id_producto='$id';");
+			$sql = 'update empleado set nombre = "'.$nomemp.'", ap_p="'.$app.'", ap_m="'.$apm.'", correo = "'.$correo.'", telefono="'.$telefono.'", calle="'.$calle.'", numero = "'.$numero.'" where id_empleado='.$id.';';
+			echo "Mi SQL es: ".$sql;
+			$insertar = mysqli_query($conexion,$sql);
+				if($insertar){
+					echo"<script>alert('Datos Actualizados Correctamente'); window.location='ver_empleado.php'</script>";
+				}else{
+					echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
+				}
+		}
+	mysqli_close($conexion);
+?>

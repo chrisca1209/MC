@@ -1,4 +1,4 @@
-<?php
+<?php 
   session_start();
   if (!isset($_SESSION['sesvar'])) {
     echo '
@@ -7,6 +7,7 @@
         </script>
     ';
 }//end of if
+include ('../adm/conexion.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>Registro de Empleados</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -42,6 +43,8 @@
 
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
+    <link href="../css/style.css" rel="stylesheet" media="all">
+	
 
 </head>
 
@@ -57,7 +60,7 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
@@ -77,23 +80,25 @@
                             <a href="./venta.php">
                                 <i class="fas fa-table"></i>Ventas</a>
                         </li>
-                        <li class=" has-sub">
+						
+						<li class=" active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>Empleados</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li >
+                                <li class=" active has-sub">
                                     <a href="registro_empleado.php">Registrar Nuevo Empleado</a>
                                 </li>
-                                <li class=" has-sub">
+                                <li>
                                     <a href="ver_empleado.php">Ver Empleado</a>
                                 </li>
                             </ul>
                         </li>
-						<li class="has-sub">
+						
+						<li class=" has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="  has-sub">
+                                <li class=" has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
                                 <li>
@@ -265,7 +270,7 @@
                     </div>
                 </div>
             </header>
-            <!-- HEADER DESKTOP-->
+            <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
@@ -274,23 +279,48 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Main Page</h2>
+                                    <h2 class="title-1">Registro de Empleados</h2>
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row">
+						<div>
+							<form action="" method="POST" enctype="multipart/form-data"> 
+									<br><br>
+									<label>Nombre: </label>	<input type="text" name="nomemp" style="width:220px" required="required" placeholder="	Nombre_Empleado"/>
+									<br><br>
+									<label>Apellido Paterno: </label>	<input type="text" name="app" style="width:220px" required="required" placeholder="	Apellido_Paterno"/>
+									<br><br>
+									<label>Apellido Materno: </label>	<input type="text" name="apm" style="width:220px" required="required" placeholder="	Apellido_Materno"/>
+									<br><br>
+									<label>Correo: </label>	<input type="email" name="correo" style="width:220px" required="required" placeholder="	ejemplo@gmail.com"/>
+									<br><br>
+									<label>Teléfono: </label>	<input type="text" name="telefono" style="width:220px" required="required" placeholder="	Teléfono"/>
+									<br><br>
+									<label>Calle: </label>	<input type="text" name="calle" style="width:220px" required="required" placeholder="	Nombre_ Calle"/>
+									<br><br>
+									<label>Número: </label>	<input type="text" name="numero" style="width:220px" required="required" placeholder="	Numero_de_Casa "/>
+									<br><br>
+									<div class="overview-wrap">
+										<button class="au-btn au-btn-icon au-btn--blue" name="Guardar">
+											Guardar
+										</button>
+									</div>
+							</form>
+						</div>
+						<br>
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
                                     <p>Copyright © 2019 Business Technology. All rights reserved. Template by <a href="#">Business Technology</a>.</p>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
+        <!-- END PAGE CONTAINER-->
 
     </div>
 
@@ -322,3 +352,27 @@
 
 </html>
 <!-- end document-->
+<?php
+
+	include ('../adm/conexion.php');
+	
+	@$nomemp = $_POST['nomemp'];
+	@$ape_p = $_POST['app'];
+	@$ape_m = $_POST['apm'];
+	@$correo = $_POST['correo'];
+	@$telefono = $_POST['telefono'];
+	@$calle = $_POST['calle'];
+	@$num = $_POST['numero'];
+	
+	
+	if(isset($nomemp) and isset($ape_p) and isset($ape_m) and isset($correo) and isset($telefono) and isset($calle) and isset($num))
+	{
+			$insertar=mysqli_query($conexion,"insert into empleado values(NULL,'$nomemp','$ape_p','$ape_m','$correo','$telefono','$calle','$num');");
+				if($insertar){
+					echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_empleado.php'</script>";
+				}else{
+					echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
+                } 
+    }
+	mysqli_close($conexion);
+?>

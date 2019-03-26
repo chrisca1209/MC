@@ -1,5 +1,6 @@
 <?php 
   session_start();
+  include("../adm/conexion.php");
   if (!isset($_SESSION['sesvar'])) {
     echo '
         <script>
@@ -20,7 +21,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Modificar</title>
+    <title>Modificar Producto</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -292,7 +293,7 @@
 							
 							?>
 							<br><br>
-							<form action="" method="POST"> 
+							<form method="POST"> 
 								<label>Categorìa: </label> <select name="categoria" required="required"><option value="<?php echo $categoria; ?>">---</option>
 								<?php
 									include("../adm/conexion.php");
@@ -305,7 +306,7 @@
 								?>
 								</select>
 								<br><br>
-								<label>Proveedor: </label> <select name="proveedor" value="<?php echo $proveedor; ?>" required="required"><option>---</option>
+								<label>Proveedor: </label> <select name="proveedor" required="required"><option value="<?php echo $proveedor; ?>">---</option>
 								<?php
 									include("../adm/conexion.php");
 									$consulta_proveedor=mysqli_query($conexion,"SELECT * FROM proveedor;");
@@ -332,9 +333,8 @@
 									<br><br>
 									<div class="overview-wrap">
 										<h3>¿Desea Actualizar el registro?</h3>
-										<button type="submit" class="au-btn au-btn-icon au-btn--blue" name="Si" value="Guardar">
-											Si
-										</button>
+										<input type="submit" class="au-btn au-btn-icon au-btn--blue" name="Si" value="Guardar">
+											<!--Si-->
 										<button type="button" class="au-btn au-btn-icon au-btn--blue" name="no" value="no" onclick="javascript:window.location='ver_producto.php';">
 											No
 										</button>
@@ -387,7 +387,7 @@
 </html>
 <!-- end document-->
 <?php
-	include("../adm/conexion.php");
+	
 	@$id=$_POST['idpro'];
 	@$categoria=$_POST['categoria'];
 	@$proveedor=$_POST['proveedor'];
@@ -397,8 +397,12 @@
 	@$estadoori=$_POST['estadoori'];
 	@$precioad=$_POST['precioad'];
 	@$gastoin=$_POST['gastoin'];
+	
 		if(isset($id)){
-			$insertar=mysqli_query($conexion,"update producto set nombre='$nomprodu', color='$color', talla='$talla', estado_origen='$estadoori', id_proveedor='$proveedor', id_categoria='$categoria',precio='$precioad', gasto_indi='$gastoin' where id_producto='$id';");
+			//$insertar=mysqli_query($conexion,"update producto set nombre='$nomprodu', color='$color', talla='$talla', estado_origen='$estadoori', id_proveedor='$proveedor', id_categoria='$categoria',precio='$precioad', gasto_indi='$gastoin' where id_producto='$id';");
+			$sql = 'update producto set nombre = "'.$nomprodu.'", color="'.$color.'", talla = "'.$talla.'", estado_origen="'.$estadoori.'", id_proveedor='.$proveedor.', id_categoria='.$categoria.', precio="'.$precioad.'", gastos_indi='.$gastoin.' where id_producto='.$id.';';
+			//echo "Mi SQL es: ".$sql;
+			$insertar = mysqli_query($conexion,$sql);
 				if($insertar){
 					echo"<script>alert('Datos Guardados Correctamente')</script>";
 				}else{

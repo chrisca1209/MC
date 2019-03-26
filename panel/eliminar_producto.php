@@ -1,5 +1,6 @@
 <?php 
   session_start();
+  include("../adm/conexion.php");
   if (!isset($_SESSION['sesvar'])) {
     echo '
         <script>
@@ -20,7 +21,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Empleados</title>
+    <title>Eliminar Producto</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -39,10 +40,11 @@
     <link href="../vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="../vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="../vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="../vendor/vector-map/jqvmap.min.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
+    <link href="../css/style.css" rel="stylesheet" media="all">
+	
 
 </head>
 
@@ -62,11 +64,11 @@
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-						<li class=" has-sub">
+						<li class="active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
+                                <li class="  has-sub">
                                     <a href="registro_producto.php">Registrar Nuevo Producto</a>
                                 </li>
                                 <li>
@@ -78,15 +80,23 @@
                             <a href="./venta.php">
                                 <i class="fas fa-table"></i>Ventas</a>
                         </li>
-                        <li>
-                            <a href="empleado.php">
+                        <li class=" has-sub">
+                            <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>Empleados</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li >
+                                    <a href="registro_empleado.php">Registrar Nuevo Empleado</a>
+                                </li>
+                                <li class=" has-sub">
+                                    <a href="ver_empleado.php">Ver Empleado</a>
+                                </li>
+                            </ul>
                         </li>
 						<li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" has-sub">
+                                <li class="  has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
                                 <li>
@@ -260,109 +270,87 @@
             </header>
             <!-- END HEADER DESKTOP-->
 
+            <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <!-- MAP DATA-->
-                                <div class="map-data m-b-40">
-                                    <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-map"></i>map data</h3>
-                                    <div class="filters">
-                                        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                                            <select class="js-select2" name="property">
-                                                <option selected="selected">All Properties</option>
-                                                <option value="">Products</option>
-                                                <option value="">Services</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                        <div class="rs-select2--dark rs-select2--sm rs-select2--border">
-                                            <select class="js-select2 au-select-dark" name="time">
-                                                <option selected="selected">All Time</option>
-                                                <option value="">By Month</option>
-                                                <option value="">By Day</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                    </div>
-                                    <div class="map-wrap m-t-45 m-b-20">
-                                        <div id="vmap" style="height: 284px;"></div>
-                                    </div>
+                                <div class="overview-wrap">
+                                    <h2 class="title-1">Eliminar Producto</h2>
                                 </div>
-                                <!-- END MAP DATA-->
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <!-- MAP DATA-->
-                                <div class="map-data m-b-40">
-                                    <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-map"></i>Europe</h3>
-                                    <div class="map-wrap">
-                                        <div class="vmap" id="vmap1"></div>
-                                    </div>
-                                </div>
-                                <!-- END MAP DATA-->
-                            </div>
-                            <div class="col-md-6">
-                                <!-- MAP DATA-->
-                                <div class="map-data m-b-40">
-                                    <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-map"></i>USA</h3>
-                                    <div class="map-wrap">
-                                        <div class="vmap" id="vmap2"></div>
-                                    </div>
-                                </div>
-                                <!-- END MAP DATA-->
-                            </div>
-                            <div class="col-md-6">
-                                <!-- MAP DATA-->
-                                <div class="map-data m-b-40">
-                                    <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-map"></i>Germany</h3>
-                                    <div class="map-wrap">
-                                        <div class="vmap" id="vmap3"></div>
-                                    </div>
-                                </div>
-                                <!-- END MAP DATA-->
-                            </div>
-                            <div class="col-md-6">
-                                <!-- MAP DATA-->
-                                <div class="map-data m-b-40">
-                                    <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-map"></i>France</h3>
-                                    <div class="map-wrap">
-                                        <div class="vmap" id="vmap4"></div>
-                                    </div>
-                                </div>
-                                <!-- END MAP DATA-->
-                            </div>
-                            <div class="col-md-6">
-                                <!-- MAP DATA-->
-                                <div class="map-data m-b-40">
-                                    <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-map"></i>Russia</h3>
-                                    <div class="map-wrap">
-                                        <div class="vmap" id="vmap5"></div>
-                                    </div>
-                                </div>
-                                <!-- END MAP DATA-->
-                            </div>
-                            <div class="col-md-6">
-                                <!-- MAP DATA-->
-                                <div class="map-data m-b-40">
-                                    <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-map"></i>Brazil</h3>
-                                    <div class="map-wrap">
-                                        <div class="vmap" id="vmap6"></div>
-                                    </div>
-                                </div>
-                                <!-- END MAP DATA-->
-                                <!-- END PAGE CONTAINER-->
-                            </div>
-                        </div>
+						<div>
+							<?php  
+								include("../adm/conexion.php");
+								$id_g=$_GET['id'];
+								$consulta_genero=mysqli_query($conexion,"select * from producto where id_producto='$id_g';");
+								
+								while($r=mysqli_fetch_array($consulta_genero)){
+									$id=$r['id_producto'];
+									$categoria=$r['id_categoria'];
+									$proveedor=$r['id_proveedor'];
+									$nomprodu=$r['nombre'];
+									$color=$r['color'];
+									$talla=$r['talla'];
+									$estadoori=$r['estado_origen'];
+									$precioad=$r['precio'];
+									$gastoin=$r['gastos_indi'];
+								}
+							
+							?>
+							<br><br>
+							<form method="POST"> 
+								<label>Categorìa: </label> <select name="categoria" ><option value="<?php echo $categoria; ?>" readonly="readonly">---</option>
+								<?php
+									include("../adm/conexion.php");
+									$consulta_categoria=mysqli_query($conexion,"SELECT * FROM categoria;");
+									while($r=mysqli_fetch_array($consulta_categoria))
+									{
+										echo'<option value="'.$r['id_categoria'].'">'.$r['id_categoria'].'.- '.$r['nombre'].'</option>';
+
+									}
+								?>
+								</select>
+								<br><br>
+								<label>Proveedor: </label> <select name="proveedor" ><option value="<?php echo $proveedor; ?>" readonly="readonly">---</option>
+								<?php
+									include("../adm/conexion.php");
+									$consulta_proveedor=mysqli_query($conexion,"SELECT * FROM proveedor;");
+									while($r=mysqli_fetch_array($consulta_proveedor))
+									{
+										echo'<option value="'.$r['id_proveedor'].'">'.$r['id_proveedor'].'.- '.$r['nombre'].'</option>';
+
+									}
+								?>
+								</select>
+									<label hidden="hidden">ID: </label>	<input type="text" name="idpro" value="<?php echo $id; ?>" style="width:220px" readonly="readonly" placeholder="	Nombre_Producto" hidden="hidden"/>
+									<br><br>
+									<label>Nombre: </label>	<input type="text" name="nomprodu" value="<?php echo $nomprodu; ?>" style="width:220px" readonly="readonly" required="required" placeholder="	Nombre_Producto"/>
+									<br><br>
+									<label>Color: </label>	<input type="text" name="color" value="<?php echo $color; ?>" style="width:220px" readonly="readonly" placeholder="	Color_Producto"/>
+									<br><br>
+									<label>Talla: </label>	<input type="text" name="talla" value="<?php echo $talla; ?>" style="width:220px"  readonly="readonly"placeholder="	Nombre_Producto"/>
+									<br><br>
+									<label>Estado de Origen: </label>	<input type="text" name="estadoori" value="<?php echo $estadoori; ?>" readonly="readonly" style="width:220px" required="required" placeholder="	Nombre_Estado"/>
+									<br><br>
+									<label>Precio de Adquisición: </label> <input type="number" name="precioad" value="<?php echo $precioad; ?>" readonly="readonly" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<label>Gastos Indirectos: </label> <input type="number" name="gastoin" value="<?php echo $gastoin; ?>" readonly="readonly" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<div class="overview-wrap">
+										<h3>¿Desea Eliminar todo el registro?</h3>
+										<button type="submit" class="au-btn au-btn-icon au-btn--blue" name="Si" value="Eliminar">
+											Si
+										</button>
+										<button type="button" class="au-btn au-btn-icon au-btn--blue" name="no" value="no" onclick="javascript:window.location='ver_producto.php';">
+											No
+										</button>
+									</div>
+							</form>
+						</div>
+						<br>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
@@ -373,7 +361,9 @@
                     </div>
                 </div>
             </div>
+            <!-- END MAIN CONTENT-->
         </div>
+        <!-- END PAGE CONTAINER-->
 
     </div>
 
@@ -397,16 +387,6 @@
     <script src="../vendor/chartjs/Chart.bundle.min.js"></script>
     <script src="../vendor/select2/select2.min.js">
     </script>
-    <script src="../vendor/vector-map/jquery.vmap.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.min.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.sampledata.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.world.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.brazil.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.europe.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.france.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.germany.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.russia.js"></script>
-    <script src="../vendor/vector-map/jquery.vmap.usa.js"></script>
 
     <!-- Main JS-->
     <script src="../js/main.js"></script>
@@ -415,3 +395,28 @@
 
 </html>
 <!-- end document-->
+<?php
+	
+	@$id=$_POST['idpro'];
+	@$categoria=$_POST['categoria'];
+	@$proveedor=$_POST['proveedor'];
+	@$nomprodu=$_POST['nomprodu'];
+	@$color=$_POST['color'];
+	@$talla=$_POST['talla'];
+	@$estadoori=$_POST['estadoori'];
+	@$precioad=$_POST['precioad'];
+	@$gastoin=$_POST['gastoin'];
+	
+		if(isset($id)){
+			//$insertar=mysqli_query($conexion,"update producto set nombre='$nomprodu', color='$color', talla='$talla', estado_origen='$estadoori', id_proveedor='$proveedor', id_categoria='$categoria',precio='$precioad', gasto_indi='$gastoin' where id_producto='$id';");
+			$sql = 'delete from producto where id_producto='.$id.'';
+			//echo "Mi SQL es: ".$elimina;
+			$eliminar = mysqli_query($conexion,$sql);
+				if($eliminar){
+					echo"<script>alert('Datos Borrados Correctamente');window.location='ver_producto.php'</script>";
+				}else{
+					echo"<script>alert('Datos no eliminados en la Base de datos \n Vuelve a intentarlo')</script>";
+				}
+		}
+	mysqli_close($conexion);
+?>

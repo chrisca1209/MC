@@ -20,7 +20,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Productos</title>
+    <title>Registro de Productos</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -63,7 +63,7 @@
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-						<li class="active has-sub">
+						<li class=" active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -79,15 +79,23 @@
                             <a href="./venta.php">
                                 <i class="fas fa-table"></i>Ventas</a>
                         </li>
-                        <li>
-                            <a href="empleado.php">
+                        <li class=" has-sub">
+                            <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>Empleados</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li >
+                                    <a href="registro_empleado.php">Registrar Nuevo Empleado</a>
+                                </li>
+                                <li class=" has-sub">
+                                    <a href="ver_empleado.php">Ver Empleado</a>
+                                </li>
+                            </ul>
                         </li>
-						<li class="has-sub">
+                        <li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" has-sub">
+                                <li class="  has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
                                 <li>
@@ -386,7 +394,7 @@
         if($origenI != NULL){    
 		      $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','$destinoI');");
 		          if($insertar){
-                            echo"<script>alert('Datos Guardados Correctamente')</script>";
+                            echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_producto.php'</script>";
                  }else{
 				            echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
                   }
@@ -394,7 +402,7 @@
         }else{
             $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','NULL');");
 		          if($insertar){
-                        echo"<script>alert('Datos Guardados Correctamente')</script>";
+                        echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_producto.php'</script>";
                  }else{
 				        echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
                  }   

@@ -20,7 +20,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Proveedores</title>
+    <title>Registro de Proveedores</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -79,10 +79,20 @@
                             <a href="./venta.php">
                                 <i class="fas fa-table"></i>Ventas</a>
                         </li>
-                        <li>
-                            <a href="empleado.php">
+						
+						<li class=" has-sub">
+                            <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>Empleados</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li class=" has-sub">
+                                    <a href="registro_empleado.php">Registrar Nuevo Empleado</a>
+                                </li>
+                                <li>
+                                    <a href="ver_empleado.php">Ver Empleado</a>
+                                </li>
+                            </ul>
                         </li>
+						
 						<li class=" active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
@@ -280,7 +290,7 @@
 									<br><br>
 									<label>Teléfono: </label>	<input type="text" name="telefono" style="width:220px" placeholder="	Teléfono"/>
 									<br><br>
-									<label>Correo: </label>	<input type="text" name="correo" style="width:220px" placeholder="	ejemplo@gmail.com"/>
+									<label>Correo: </label>	<input type="email" name="correo" style="width:220px" placeholder="	ejemplo@gmail.com"/>
 									<br><br>
 									<label>Estado de Origen: </label>	<input type="text" name="estadoorig" style="width:220px" required="required" placeholder="	Nombre_Estado"/>
 									<br><br>
@@ -350,7 +360,7 @@
 	{
 		$insertar=mysqli_query($conexion,"insert into proveedor values(NULL,'$nomprove','$tel','$correo','$estadoorig');");
 		    if($insertar){
-                echo"<script>alert('Datos Guardados Correctamente')</script>";
+                echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_proveedor.php'</script>";
             }else{
 				echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
             }       
