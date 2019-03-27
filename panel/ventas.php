@@ -307,10 +307,23 @@
 								?>
 								</select>
 									<br><br>
-									<label>Cantidad: </label>	<input type="text" name="nomprodu" style="width:220px" required="required" placeholder=" "/>
-									<br><br>	
+									<label>Nombre: </label>	<input type="text" name="nomprodu" style="width:220px" required="required" placeholder="	Nombre_Producto"/>
+									<br><br>
+									<label>Color: </label>	<input type="text" name="color" style="width:220px" placeholder="	Color_Producto"/>
+									<br><br>
+									<label>Talla: </label>	<input type="text" name="talla" style="width:220px" placeholder="	Nombre_Producto"/>
+									<br><br>
+									<label>Estado de Origen: </label>	<input type="text" name="estadoori" style="width:220px" required="required" placeholder="	Nombre_Estado"/>
+									<br><br>
+									<label>Precio de Adquisición: </label> <input type="number" name="precioad" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<label>Gastos Indirectos: </label> <input type="number" name="gastoin" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<label>Imagen: </label> <input type="file" name="image" />
+									<br><br>
+									<div class="overview-wrap">
 										<button class="au-btn au-btn-icon au-btn--blue" name="Guardar">
-											Confirmar venta
+											Guardar
 										</button>
 									</div>
 							</form>
