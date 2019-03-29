@@ -20,7 +20,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Registro de Productos</title>
+    <title>Registro de Ventas</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -75,9 +75,17 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="./venta.php">
+                        <li class=" active has-sub">
+                           <a class="js-arrow" href="#">
                                 <i class="fas fa-table"></i>Ventas</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li class=" active has-sub">
+                                    <a href="registrar_venta.php">Registrar venta</a>
+                                </li>
+                                <li>
+                                    <a href="carrito.php">Carrito</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class=" has-sub">
                             <a class="js-arrow" href="#">
