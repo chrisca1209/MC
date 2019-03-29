@@ -20,7 +20,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Ventas</title>
+    <title>Registro de Proveedores</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -63,11 +63,11 @@
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-						<li class=" active has-sub">
+						<li class=" has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
+                                <li class=" has-sub">
                                     <a href="registro_producto.php">Registrar Nuevo Producto</a>
                                 </li>
                                 <li>
@@ -75,36 +75,29 @@
                                 </li>
                             </ul>
                         </li>
-						<li class=" active has-sub">
-                           <a class="js-arrow" href="#">
+                        <li>
+                            <a href="./venta.php">
                                 <i class="fas fa-table"></i>Ventas</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
-                                    <a href="registrar_venta.php">Registrar venta</a>
-                                </li>
-                                <li>
-                                    <a href="carrito.php">Carrito</a>
-                                </li>
-                            </ul>
                         </li>
-                      
-                        <li class=" has-sub">
+						
+						<li class=" has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>Empleados</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li >
+                                <li class=" has-sub">
                                     <a href="registro_empleado.php">Registrar Nuevo Empleado</a>
                                 </li>
-                                <li class=" has-sub">
+                                <li>
                                     <a href="ver_empleado.php">Ver Empleado</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="has-sub">
+						
+						<li class=" active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="  has-sub">
+                                <li class=" active has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
                                 <li>
@@ -118,7 +111,7 @@
         </aside>
         <!-- END MENU SIDEBAR-->
 
-        <!-- PAGE CONTAINER-->
+       <!-- PAGE CONTAINER-->
         <div class="page-container">
             <!-- HEADER DESKTOP-->
             <header class="header-desktop">
@@ -285,14 +278,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <!--<h2 class="title-1">Registrar Ventas</h2>-->
+                                    <h2 class="title-1">Registrar Ventas</h2>
                                 </div>
                             </div>
                         </div>
 						<div>
 							<br><br>
 							<form action="" method="POST" enctype="multipart/form-data"> 
-								<!--<label>Categorìa: </label> <select name="categoria" required="required"><option>---</option>
+								<label>Categorìa: </label> <select name="categoria" required="required"><option>---</option>
 								<?php
 									include("../adm/conexion.php");
 									$consulta_categoria=mysqli_query($conexion,"SELECT * FROM categoria;");
@@ -322,27 +315,8 @@
 											Confirmar venta
 										</button>
 									</div>
-							</form>-->
+							</form>
 						</div>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
 						<br>
                         <div class="row">
                             <div class="col-md-12">

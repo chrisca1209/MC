@@ -20,7 +20,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Ventas</title>
+    <title>Registro de Proveedores</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -63,11 +63,11 @@
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-						<li class=" active has-sub">
+						<li class=" has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
+                                <li class=" has-sub">
                                     <a href="registro_producto.php">Registrar Nuevo Producto</a>
                                 </li>
                                 <li>
@@ -75,36 +75,29 @@
                                 </li>
                             </ul>
                         </li>
-						<li class=" active has-sub">
-                           <a class="js-arrow" href="#">
+                        <li>
+                            <a href="./venta.php">
                                 <i class="fas fa-table"></i>Ventas</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
-                                    <a href="registrar_venta.php">Registrar venta</a>
-                                </li>
-                                <li>
-                                    <a href="carrito.php">Carrito</a>
-                                </li>
-                            </ul>
                         </li>
-                      
-                        <li class=" has-sub">
+						
+						<li class=" has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>Empleados</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li >
+                                <li class=" has-sub">
                                     <a href="registro_empleado.php">Registrar Nuevo Empleado</a>
                                 </li>
-                                <li class=" has-sub">
+                                <li>
                                     <a href="ver_empleado.php">Ver Empleado</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="has-sub">
+						
+						<li class=" active has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="  has-sub">
+                                <li class=" active has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
                                 <li>
@@ -285,64 +278,29 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <!--<h2 class="title-1">Registrar Ventas</h2>-->
+                                    <h2 class="title-1">Registro de Proveedores</h2>
                                 </div>
                             </div>
                         </div>
 						<div>
 							<br><br>
 							<form action="" method="POST" enctype="multipart/form-data"> 
-								<!--<label>Categorìa: </label> <select name="categoria" required="required"><option>---</option>
-								<?php
-									include("../adm/conexion.php");
-									$consulta_categoria=mysqli_query($conexion,"SELECT * FROM categoria;");
-									while($r=mysqli_fetch_array($consulta_categoria))
-									{
-										echo'<option value="'.$r['id_categoria'].'">'.$r['id_categoria'].'.- '.$r['nombre'].'</option>';
-
-									}
-								?>
-								</select>
-								<br><br>
-								<label>Producto: </label> <select name="Productos" required="required"><option>---</option>
-								<?php
-									include("../adm/conexion.php");
-									$consulta_proveedor=mysqli_query($conexion,"SELECT * FROM producto;");
-									while($r=mysqli_fetch_array($consulta_proveedor))
-									{
-										echo'<option value="'.$r['id_producto'].'">'.$r['id_producto'].'.- '.$r['nombre'].'</option>';
-
-									}
-								?>
-								</select>
 									<br><br>
-									<label>Cantidad: </label>	<input type="text" name="nomprodu" style="width:220px" required="required" placeholder=" "/>
-									<br><br>	
+									<label>Nombre: </label>	<input type="text" name="nomprove" style="width:220px" required="required" placeholder="	Nombre_Proveedor"/>
+									<br><br>
+									<label>Teléfono: </label>	<input type="text" name="telefono" style="width:220px" placeholder="	Teléfono"/>
+									<br><br>
+									<label>Correo: </label>	<input type="email" name="correo" style="width:220px" placeholder="	ejemplo@gmail.com"/>
+									<br><br>
+									<label>Estado de Origen: </label>	<input type="text" name="estadoorig" style="width:220px" required="required" placeholder="	Nombre_Estado"/>
+									<br><br>
+									<div class="overview-wrap">
 										<button class="au-btn au-btn-icon au-btn--blue" name="Guardar">
-											Confirmar venta
+											Guardar
 										</button>
 									</div>
-							</form>-->
+							</form>
 						</div>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
 						<br>
                         <div class="row">
                             <div class="col-md-12">
@@ -391,37 +349,21 @@
 <?php
 
 	include ('../adm/conexion.php');
-	@$categoria = $_POST['categoria'];
-	@$proveedor = $_POST['proveedor'];
-	@$nomprodu = $_POST['nomprodu'];
-	@$color = $_POST['color'];
-	@$talla = $_POST['talla'];
-	@$estadoori = $_POST['estadoori'];
-	@$precioad = $_POST['precioad'];
-	@$gastoin = $_POST['gastoin'];
-	@$nomImage=$_FILES['image']['name'];
-	@$origenI=$_FILES['image']['tmp_name'];
-	@$destinoI="../images/productos/".$nomImage;
-	@copy($origenI,$destinoI);
 	
-	if(isset($categoria) and isset($proveedor) and isset($nomprodu) and isset($color) and isset($talla) and isset($estadoori) and isset($precioad) and isset($gastoin) and isset($destinoI))
+	@$nomprove = $_POST['nomprove'];
+	@$tel = $_POST['telefono'];
+	@$correo = $_POST['correo'];
+	@$estadoorig = $_POST['estadoorig'];
+	
+	
+	if(isset($nomprove) and isset($tel) and isset($correo) and isset($estadoorig))
 	{
-        if($origenI != NULL){    
-		      $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','$destinoI');");
-		          if($insertar){
-                            echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_producto.php'</script>";
-                 }else{
-				            echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
-                  }
-            
-        }else{
-            $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','NULL');");
-		          if($insertar){
-                        echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_producto.php'</script>";
-                 }else{
-				        echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
-                 }   
-	   }
+		$insertar=mysqli_query($conexion,"insert into proveedor values(NULL,'$nomprove','$tel','$correo','$estadoorig');");
+		    if($insertar){
+                echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_proveedor.php'</script>";
+            }else{
+				echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
+            }       
     }
 	mysqli_close($conexion);
 ?>
