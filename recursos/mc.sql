@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-03-2019 a las 06:34:29
+-- Tiempo de generación: 29-03-2019 a las 21:41:27
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -33,6 +33,15 @@ CREATE TABLE `categoria` (
   `nombre` varchar(30) NOT NULL,
   `descripcion` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`id_categoria`, `nombre`, `descripcion`) VALUES
+(1, 'Ropa', 'Todo tipo de ropa para dama hecho por manos artesanas'),
+(2, 'Calzado', 'Todo tipo de calzado para dama hecho por manos artesanas'),
+(3, 'Accesorios', 'Todo tipo de accesorios para dama hecho por manos artesanas');
 
 -- --------------------------------------------------------
 
@@ -65,7 +74,10 @@ CREATE TABLE `producto` (
   `estado_origen` varchar(50) NOT NULL,
   `id_proveedor` int(11) NOT NULL,
   `id_categoria` int(11) NOT NULL,
-  `precio` int(10) NOT NULL
+  `precio` int(10) NOT NULL,
+  `gastos_indi` int(5) NOT NULL,
+  `imagen` varchar(50) DEFAULT NULL,
+  `Cantidad` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -95,6 +107,14 @@ CREATE TABLE `proveedor` (
   `estado_republica` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `proveedor`
+--
+
+INSERT INTO `proveedor` (`id_proveedor`, `nombre`, `telefono`, `correo`, `estado_republica`) VALUES
+(1, 'Pepe', '234-9890-120', 'pepe@gmail.com', 'CDMX'),
+(2, 'Ángel', '984394984', 'angel@gmail.com', 'Yucatán');
+
 -- --------------------------------------------------------
 
 --
@@ -119,7 +139,7 @@ INSERT INTO `usuario` (`id_usuario`, `nombre`, `ape_p`, `ape_m`, `email`, `passw
 (2, 'Anel', 'Sánchez', 'Medel', 'anel@mc.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5'),
 (3, 'Abdiel', 'Romero', 'Serrano', 'abdiel@mc.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5'),
 (4, 'Juan Manuel', 'Domínguez', 'Fierro', 'juanma@mc.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5'),
-(5, 'Christia', 'Cante', 'Morales', 'chris@mc.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5');
+(5, 'Christian', 'Cante', 'Morales', 'chris@mc.com', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5');
 
 -- --------------------------------------------------------
 
@@ -153,8 +173,8 @@ ALTER TABLE `empleado`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`id_producto`),
-  ADD KEY `id_proveedor` (`id_proveedor`),
-  ADD KEY `id_categoria` (`id_categoria`);
+  ADD KEY `id_categoria` (`id_categoria`),
+  ADD KEY `id_proveedor` (`id_proveedor`);
 
 --
 -- Indices de la tabla `produ_venta`
@@ -190,7 +210,7 @@ ALTER TABLE `venta`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
@@ -208,7 +228,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_proveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -230,8 +250,8 @@ ALTER TABLE `venta`
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `producto_ibfk_3` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id_proveedor`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `produ_venta`
