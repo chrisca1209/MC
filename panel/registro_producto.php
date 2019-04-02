@@ -76,11 +76,11 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class=" active has-sub">
+                        <li class="  has-sub">
                            <a class="js-arrow" href="#">
                                 <i class="fas fa-table"></i>Ventas</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
+                                <li class="  has-sub">
                                     <a href="registrar_venta.php">Registrar venta</a>
                                 </li>
                                 <li>
@@ -330,6 +330,8 @@
 									<br><br>
 									<label>Imagen: </label> <input type="file" name="image" />
 									<br><br>
+									<label>Cantidad: </label> <input type="number" name="cantidad" style="width:120px" required="required"/>
+									<br><br>
 									<div class="overview-wrap">
 										<button class="au-btn au-btn-icon au-btn--blue" name="Guardar">
 											Guardar
@@ -397,11 +399,12 @@
 	@$origenI=$_FILES['image']['tmp_name'];
 	@$destinoI="../images/productos/".$nomImage;
 	@copy($origenI,$destinoI);
+	@$canti = $_POST['cantidad'];
 	
-	if(isset($categoria) and isset($proveedor) and isset($nomprodu) and isset($color) and isset($talla) and isset($estadoori) and isset($precioad) and isset($gastoin) and isset($destinoI))
+	if(isset($categoria) and isset($proveedor) and isset($nomprodu) and isset($color) and isset($talla) and isset($estadoori) and isset($precioad) and isset($gastoin) and isset($destinoI) and isset($canti))
 	{
         if($origenI != NULL){    
-		      $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','$destinoI');");
+		      $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','$destinoI','$canti');");
 		          if($insertar){
                             echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_producto.php'</script>";
                  }else{
@@ -409,7 +412,7 @@
                   }
             
         }else{
-            $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','NULL');");
+            $insertar=mysqli_query($conexion,"insert into producto values(NULL,'$nomprodu','$color','$talla','$estadoori','$proveedor','$categoria','$precioad','$gastoin','NULL','$canti');");
 		          if($insertar){
                         echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_producto.php'</script>";
                  }else{

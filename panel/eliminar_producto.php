@@ -65,7 +65,7 @@
                             <a class="js-arrow" href="./dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-						<li class="active has-sub">
+						<li class=" has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Productos</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">

@@ -79,11 +79,11 @@
                                 </li>
                             </ul>
                         </li>
-                       <li class=" active has-sub">
+                       <li class=" has-sub">
                            <a class="js-arrow" href="#">
                                 <i class="fas fa-table"></i>Ventas</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
+                                <li class=" has-sub">
                                     <a href="registrar_venta.php">Registrar venta</a>
                                 </li>
                                 <li>
@@ -329,7 +329,7 @@
 												<td>'.$row['id_categoria'].'</td>
 												<td>'.$row['precio'].'</td>
 												<td>'.$row['gastos_indi'].'</td>
-												<td>'.$row['imagen'].'</td>
+												<td><img src='.$row['imagen'].' width="100px" height="100px"></td>
 												<td><a href=modificar_producto.php?id='.$row['id_producto'].'><button type="button" class="btn btn-success">Editar</button></a></td>
 												<td><a href=eliminar_producto.php?id='.$row['id_producto'].'><button type="button" class="btn btn-danger">Eliminar</button></a></td>
 											</tr>';

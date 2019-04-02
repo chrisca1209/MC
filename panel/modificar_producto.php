@@ -77,11 +77,11 @@
                                 </li>
                             </ul>
                         </li>
-                       <li class=" active has-sub">
+                       <li class=" has-sub">
                            <a class="js-arrow" href="#">
                                 <i class="fas fa-table"></i>Ventas</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
+                                <li class="  has-sub">
                                     <a href="registrar_venta.php">Registrar venta</a>
                                 </li>
                                 <li>
@@ -298,6 +298,7 @@
 									$estadoori=$r['estado_origen'];
 									$precioad=$r['precio'];
 									$gastoin=$r['gastos_indi'];
+									$canti = $r ['Cantidad'];
 								}
 							
 							?>
@@ -339,6 +340,8 @@
 									<label>Precio de Adquisición: </label> <input type="number" name="precioad" value="<?php echo $precioad; ?>" step="0.01" style="width:120px" required="required"/>
 									<br><br>
 									<label>Gastos Indirectos: </label> <input type="number" name="gastoin" value="<?php echo $gastoin; ?>" step="0.01" style="width:120px" required="required"/>
+									<br><br>
+									<label>Cantidad: </label> <input type="number" name="canti" value="<?php echo $canti; ?>" step="0.01" style="width:120px" required="required"/>
 									<br><br>
 									<div class="overview-wrap">
 										<h3>¿Desea Actualizar el registro?</h3>
@@ -406,10 +409,11 @@
 	@$estadoori=$_POST['estadoori'];
 	@$precioad=$_POST['precioad'];
 	@$gastoin=$_POST['gastoin'];
+	@$canti=$_POST['canti'];
 	
 		if(isset($id)){
 			//$insertar=mysqli_query($conexion,"update producto set nombre='$nomprodu', color='$color', talla='$talla', estado_origen='$estadoori', id_proveedor='$proveedor', id_categoria='$categoria',precio='$precioad', gasto_indi='$gastoin' where id_producto='$id';");
-			$sql = 'update producto set nombre = "'.$nomprodu.'", color="'.$color.'", talla = "'.$talla.'", estado_origen="'.$estadoori.'", id_proveedor='.$proveedor.', id_categoria='.$categoria.', precio="'.$precioad.'", gastos_indi='.$gastoin.' where id_producto='.$id.';';
+			$sql = 'update producto set nombre = "'.$nomprodu.'", color="'.$color.'", talla = "'.$talla.'", estado_origen="'.$estadoori.'", id_proveedor='.$proveedor.', id_categoria='.$categoria.', precio="'.$precioad.'", gastos_indi='.$gastoin.',Cantidad='.$canti.' where id_producto='.$id.';';
 			//echo "Mi SQL es: ".$sql;
 			$insertar = mysqli_query($conexion,$sql);
 				if($insertar){
