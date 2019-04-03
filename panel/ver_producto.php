@@ -87,7 +87,7 @@
                                     <a href="registrar_venta.php">Registrar venta</a>
                                 </li>
                                 <li>
-                                    <a href="carrito.php">Carrito</a>
+                                    <a href="carrito.php">Historial de Ventas</a>
                                 </li>
                             </ul>
                         </li>

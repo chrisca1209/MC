@@ -1,12 +1,14 @@
 <?php 
-  session_start();
-  if (!isset($_SESSION['sesvar'])) {
-    echo '
-        <script>
-            window.location = "../"
-        </script>
-    ';
-}//end of if
+	session_start();
+	if (!isset($_SESSION['sesvar'])) {
+		echo '
+			<script>
+				window.location = "../"
+			</script>
+		';
+	}//end of if
+
+	include('../adm/conexion.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +22,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Registro de Proveedores</title>
+    <title>Historial de Ventas</title>
 
     <!-- Fontfaces CSS-->
     <link href="../css/font-face.css" rel="stylesheet" media="all">
@@ -44,6 +46,7 @@
     <!-- Main CSS-->
     <link href="../css/theme.css" rel="stylesheet" media="all">
     <link href="../css/style.css" rel="stylesheet" media="all">
+	<link rel="stylesheet" type="text/css" href="../plugins/data-tables/DataTables-1.10.18/css/jquery.dataTables.min.css">
 	
 
 </head>
@@ -76,7 +79,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class=" has-sub">
+                       <li class="  has-sub">
                            <a class="js-arrow" href="#">
                                 <i class="fas fa-table"></i>Ventas</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -84,7 +87,7 @@
                                     <a href="registrar_venta.php">Registrar venta</a>
                                 </li>
                                 <li>
-                                   <a href="historial_de_ventas.php">Historial de ventas</a>
+                                    <a href="historial_de_ventas.php">Historial de ventas</a>
                                 </li>
                             </ul>
                         </li>
@@ -93,11 +96,11 @@
                             <a class="js-arrow" href="#">
                                 <i class="far fa-check-square"></i>Empleados</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" has-sub">
+                                <li >
                                     <a href="registro_empleado.php">Registrar Nuevo Empleado</a>
                                 </li>
-                                <li>
-                                    <a href="ver_empleado.php">Ver Empleado</a>
+                                <li class="  has-sub">
+                                    <a href="ver_empleado.php">Historial de ventas</a>
                                 </li>
                             </ul>
                         </li>
@@ -106,10 +109,10 @@
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class=" active has-sub">
+                                <li class=" has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
-                                <li>
+                                <li class=" active has-sub">
                                     <a href="ver_proveedor.php">Ver Proveedores</a>
                                 </li>
                             </ul>
@@ -281,34 +284,56 @@
             <!-- END HEADER DESKTOP-->
 
             <!-- MAIN CONTENT-->
+			
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Registro de Proveedores</h2>
+                                    <h2 class="title-1">Historial de Ventas</h2>
                                 </div>
                             </div>
                         </div>
+						<br><br>
 						<div>
-							<br><br>
-							<form action="" method="POST" enctype="multipart/form-data"> 
-									<br><br>
-									<label>Nombre: </label>	<input type="text" name="nomprove" style="width:220px" required="required" placeholder="	Nombre_Proveedor"/>
-									<br><br>
-									<label>Teléfono: </label>	<input type="text" name="telefono" style="width:220px" placeholder="	Teléfono"/>
-									<br><br>
-									<label>Correo: </label>	<input type="email" name="correo" style="width:220px" placeholder="	ejemplo@gmail.com"/>
-									<br><br>
-									<label>Estado de Origen: </label>	<input type="text" name="estadoorig" style="width:220px" required="required" placeholder="	Nombre_Estado"/>
-									<br><br>
-									<div class="overview-wrap">
-										<button class="au-btn au-btn-icon au-btn--blue" name="Guardar">
-											Guardar
-										</button>
-									</div>
-							</form>
+							<?php 
+								$query = 'SELECT * FROM produ_venta;';
+								$query2 = 'select produ_venta.id_venta, producto.nombre, categoria.nombre as categoria, producto.color, producto.talla, produ_venta.fecha from producto inner join categoria inner join produ_venta where producto.id_producto=produ_venta.id_producto and producto.id_categoria=categoria.id_categoria;';
+								$query_result = mysqli_query($conexion,$query);
+								$query_result2 = mysqli_query($conexion,$query2);
+							?>
+						<!--<a href="registro_proveedor.php"><button type="button" class="btn btn-info"> + Nuevo Registro</button></a>- -->
+						<br><br>
+						<table id="productos" style="text-align:center">
+								<thead style="">
+									<th>ID de la venta</th>
+									<th>Producto</th>
+									<th>Categoria</th>
+									<th>Color</th>
+									<th>Talla</th>
+									<th>Fecha</th>
+									<th></th>
+									<th></th>
+								</thead>
+								<tbody style="text-align:center;">
+									<?php
+										while(($row = mysqli_fetch_array($query_result2)) != null){
+										
+											echo '<tr>
+												<td>'.$row['id_venta'].'</td>
+												<td>'.$row['nombre'].'</td>
+												<td>'.$row['categoria'].'</td>
+												<td>'.$row['color'].'</td>
+												<td>'.$row['talla'].'</td>
+												<td>'.$row['fecha'].'</td>
+												<td><a href=modificar_proveedor.php?id='.$row['id_venta'].'><button type="button" class="btn btn-success">Editar</button></a></td>
+												<td><a href=eliminar_proveedor.php?id='.$row['id_venta'].'><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+											</tr>';
+										}//end while
+									?>
+								</tbody>
+							</table>
 						</div>
 						<br>
                         <div class="row">
@@ -350,29 +375,17 @@
 
     <!-- Main JS-->
     <script src="../js/main.js"></script>
+	
+	<script type="text/javascript" language="javascript" src="../plugins/data-tables/DataTables-1.10.18/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" language="javascript" src="../plugins/data-tables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+			
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#productos').DataTable();
+		} );
+	</script>
 
 </body>
 
 </html>
 <!-- end document-->
-<?php
-
-	include ('../adm/conexion.php');
-	
-	@$nomprove = $_POST['nomprove'];
-	@$tel = $_POST['telefono'];
-	@$correo = $_POST['correo'];
-	@$estadoorig = $_POST['estadoorig'];
-	
-	
-	if(isset($nomprove) and isset($tel) and isset($correo) and isset($estadoorig))
-	{
-		$insertar=mysqli_query($conexion,"insert into proveedor values(NULL,'$nomprove','$tel','$correo','$estadoorig');");
-		    if($insertar){
-                echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_proveedor.php'</script>";
-            }else{
-				echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
-            }       
-    }
-	mysqli_close($conexion);
-?>

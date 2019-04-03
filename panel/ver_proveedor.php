@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	if (!isset($_SESSION['sesvar'])) {
-		echo '
+		echo '
 			<script>
 				window.location = "../"
 			</script>
@@ -87,7 +87,7 @@
                                     <a href="registrar_venta.php">Registrar venta</a>
                                 </li>
                                 <li>
-                                    <a href="carrito.php">Carrito</a>
+                                    <a href="historial_de_ventas.php">Historial de Ventas</a>
                                 </li>
                             </ul>
                         </li>
