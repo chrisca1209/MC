@@ -300,8 +300,8 @@
 								<label>Empleado: </label> <select name="empleado" required="required"><option>---</option>
 								<?php
 									include("../adm/conexion.php");
-									$consulta_categoria=mysqli_query($conexion,"SELECT * FROM empleado;");
-									while($r=mysqli_fetch_array($consulta_categoria))
+									$consulta_empleado=mysqli_query($conexion,"SELECT * FROM empleado;");
+									while($r=mysqli_fetch_array($consulta_empleado))
 									{
 										echo'<option value="'.$r['id_empleado'].'">'.$r['id_empleado'].'.- '.$r['nombre'].' '.$r['ap_p'].'</option>';
 
@@ -324,8 +324,9 @@
 								<label>Producto: </label> <select name="Producto" required="required"><option>---</option>
 								<?php
 									include("../adm/conexion.php");
-									$consulta_proveedor=mysqli_query($conexion,"SELECT * FROM producto;");
-									while($r=mysqli_fetch_array($consulta_proveedor))
+									$id_categoria=
+									$consulta_producto=mysqli_query($conexion,"SELECT * FROM producto;");
+									while($r=mysqli_fetch_array($consulta_producto))
 									{
 										echo'<option value="'.$r['id_producto'].'">'.$r['id_producto'].'.- '.$r['nombre'].'</option>';
 
@@ -345,7 +346,7 @@
 			
             <div class="main-content">
                 <div class="section__content section__content--p30">
-                    <div class="container-fluid">
+                   <!-- <div class="container-fluid">
                         <!-- <div class="row">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
@@ -357,32 +358,36 @@
 						<div>
 							<?php 
 								$query = 'SELECT * FROM produ_venta;';
+								$query2 = 'select produ_venta.id_venta, producto.nombre, categoria.nombre as categoria, producto.color, producto.talla, produ_venta.fecha from producto inner join categoria inner join produ_venta where producto.id_producto=produ_venta.id_producto and producto.id_categoria=categoria.id_categoria;';
 								$query_result = mysqli_query($conexion,$query);
+								$query_result2 = mysqli_query($conexion,$query2);
 							?>
-						
-						<br><br>-->
+						<!--<a href="registro_proveedor.php"><button type="button" class="btn btn-info"> + Nuevo Registro</button></a>- -->
+						<br><br>
 						<table id="productos" style="text-align:center">
 								<thead style="">
-									<th>ID</th>
+									<th>ID de la venta</th>
 									<th>Producto</th>
 									<th>Categoria</th>
 									<th>Color</th>
 									<th>Talla</th>
+									<th>Fecha</th>
 									<th></th>
 									<th></th>
 								</thead>
 								<tbody style="text-align:center;">
 									<?php
-										while(($row = mysqli_fetch_array($query_result)) != null){
+										while(($row = mysqli_fetch_array($query_result2)) != null){
 										
 											echo '<tr>
-												<td>'.$row['id_proveedor'].'</td>
+												<td>'.$row['id_venta'].'</td>
 												<td>'.$row['nombre'].'</td>
-												<td>'.$row['telefono'].'</td>
-												<td>'.$row['correo'].'</td>
-												<td>'.$row['estado_republica'].'</td>
-												<td><a href=modificar_proveedor.php?id='.$row['id_proveedor'].'><button type="button" class="btn btn-success">Editar</button></a></td>
-												<td><a href=eliminar_proveedor.php?id='.$row['id_proveedor'].'><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+												<td>'.$row['categoria'].'</td>
+												<td>'.$row['color'].'</td>
+												<td>'.$row['talla'].'</td>
+												<td>'.$row['fecha'].'</td>
+												<td><a href=modificar_proveedor.php?id='.$row['id_venta'].'><button type="button" class="btn btn-success">Editar</button></a></td>
+												<td><a href=eliminar_proveedor.php?id='.$row['id_venta'].'><button type="button" class="btn btn-danger">Eliminar</button></a></td>
 											</tr>';
 										}//end while
 									?>
@@ -391,9 +396,9 @@
 						</div>
 						<br>
 						<button class="au-btn au-btn-icon au-btn--blue" name="Guardar">
-											Confirmar
-										</button>
-                        <div class="row">
+							Confirmar
+						</button>
+                       <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">
                                     <p>Copyright © 2019 Business Technology. All rights reserved. Template by <a href="#">Business Technology</a>.</p>
@@ -458,19 +463,28 @@
 	if(isset($empleado) and isset($categoria) and isset($Producto) and isset($cantidad))
 	{
 	
+		
 		$insertar2=mysqli_query($conexion,"insert into venta values(NULL,'$empleado');");
-		$insertar=mysqli_query($conexion,"insert into produ_venta values('$Producto','1',CURDATE(),'$correo','$cantidad');");
+		/*if($insertar2){
+                echo"<script>alert('Datos Guardados Correctamente'); window.location='registrar_venta.php'</script>";
+            }else{
+				echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
+            } */
+		
+		$rs = mysql_query("SELECT MAX(id_venta) AS id FROM venta");
+		if ($row = mysql_fetch_row($rs)) {
+			$id = trim($row[0]);
+		}
+		
+		
+		$insertar=mysqli_query($conexion,"insert into produ_venta values('$Producto','$id',CURDATE(),'$correo','$cantidad');");
 		
 		    if($insertar){
-                echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_proveedor.php'</script>";
+                echo"<script>alert('Datos Guardados Correctamente'); window.location='registrar_venta.php'</script>";
             }else{
 				echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
             }       
-			 if($insertar2){
-                echo"<script>alert('Datos Guardados Correctamente'); window.location='ver_proveedor.php'</script>";
-            }else{
-				echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
-            } 
+			 
     }
 	mysqli_close($conexion);
 ?>
