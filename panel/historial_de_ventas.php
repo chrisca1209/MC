@@ -79,14 +79,14 @@
                                 </li>
                             </ul>
                         </li>
-                       <li class="  has-sub">
+                       <li class=" active has-sub">
                            <a class="js-arrow" href="#">
                                 <i class="fas fa-table"></i>Ventas</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li class="  has-sub">
                                     <a href="registrar_venta.php">Registrar venta</a>
                                 </li>
-                                <li>
+                                <li class=" active has-sub">
                                     <a href="historial_de_ventas.php">Historial de ventas</a>
                                 </li>
                             </ul>
@@ -105,14 +105,14 @@
                             </ul>
                         </li>
 						
-						<li class=" active has-sub">
+						<li class="has-sub">
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-chart-bar"></i>Proveedores</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li class=" has-sub">
                                     <a href="registro_proveedor.php">Registrar Nuevo Proveedor</a>
                                 </li>
-                                <li class=" active has-sub">
+                                <li class=" has-sub">
                                     <a href="ver_proveedor.php">Ver Proveedores</a>
                                 </li>
                             </ul>
