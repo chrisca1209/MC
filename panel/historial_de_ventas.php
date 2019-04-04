@@ -1,7 +1,7 @@
 <?php 
 	session_start();
 	if (!isset($_SESSION['sesvar'])) {
-		echo '
+		echo '
 			<script>
 				window.location = "../"
 			</script>
