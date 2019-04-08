@@ -3,8 +3,6 @@
 	if (!isset($_SESSION['sesvar'])) {
 
 		echo '
-		
-
 			<script>
 				window.location = "../"
 			</script>
@@ -361,7 +359,7 @@
 						<div>
 							<?php 
 								$query = 'SELECT * FROM produ_venta;';
-								$query2 = 'select produ_venta.id_venta, producto.nombre, categoria.nombre as categoria, producto.color, producto.talla, produ_venta.fecha from producto inner join categoria inner join produ_venta where producto.id_producto=produ_venta.id_producto and producto.id_categoria=categoria.id_categoria;';
+								$query2 = 'select produ_venta.id_venta, producto.nombre, produ_venta.cantidad, categoria.nombre as categoria, producto.color, producto.talla, produ_venta.fecha from producto inner join categoria inner join produ_venta where producto.id_producto=produ_venta.id_producto and producto.id_categoria=categoria.id_categoria;';
 								$query_result = mysqli_query($conexion,$query);
 								$query_result2 = mysqli_query($conexion,$query2);
 							?>
@@ -371,6 +369,7 @@
 								<thead style="">
 									<th>ID de la venta</th>
 									<th>Producto</th>
+									<th>cantidad</th>
 									<th>Categoria</th>
 									<th>Color</th>
 									<th>Talla</th>
@@ -385,10 +384,12 @@
 											echo '<tr>
 												<td>'.$row['id_venta'].'</td>
 												<td>'.$row['nombre'].'</td>
+												<td>'.$row['cantidad'].'</td>
 												<td>'.$row['categoria'].'</td>
 												<td>'.$row['color'].'</td>
 												<td>'.$row['talla'].'</td>
 												<td>'.$row['fecha'].'</td>
+												
 												<td><a href=modificar_proveedor.php?id='.$row['id_venta'].'><button type="button" class="btn btn-success">Editar</button></a></td>
 												<td><a href=eliminar_proveedor.php?id='.$row['id_venta'].'><button type="button" class="btn btn-danger">Eliminar</button></a></td>
 											</tr>';
@@ -467,20 +468,26 @@
 	{
 	
 		
+		
 		$insertar2=mysqli_query($conexion,"insert into venta values(NULL,'$empleado');");
-		/*if($insertar2){
+			if($insertar2){
                 echo"<script>alert('Datos Guardados Correctamente'); window.location='registrar_venta.php'</script>";
             }else{
 				echo"<script>alert('Datos no insertados en la Base de datos \n Vuelve a intentarlo')</script>";
-            } */
+            } 
 		
-		$rs = mysql_query("SELECT MAX(id_venta) AS id FROM venta");
-		if ($row = mysql_fetch_row($rs)) {
-			$id = trim($row[0]);
+		$ultimaventa = mysqli_query($conexion,"SELECT MAX(id_venta) AS ultimo FROM venta;");
+		while($ulven = mysqli_fetch_array($ultimaventa)){
+			$idven = $ulven['ultimo'];
+		}
+		
+		$totaldeventa = mysqli_query($conexion,"SELECT SUM(producto.precio*produ_venta.cantidad) as total from produ_venta inner join venta inner join producto where venta.id_venta=produ_venta.id_venta and producto.id_producto=produ_venta.id_producto;");
+		while($tv = mysqli_fetch_array($totaldeventa)){
+			$TOTAL = $tv['total'];
 		}
 		
 		
-		$insertar=mysqli_query($conexion,"insert into produ_venta values('$Producto','$id',CURDATE(),'$correo','$cantidad');");
+		$insertar=mysqli_query($conexion,"insert into produ_venta values('$Producto','$idven',CURDATE(),'$TOTAL','$cantidad');");
 		
 		    if($insertar){
                 echo"<script>alert('Datos Guardados Correctamente'); window.location='registrar_venta.php'</script>";
